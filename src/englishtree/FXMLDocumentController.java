@@ -28,6 +28,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -71,7 +73,24 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
-   
+   /*@FXML
+    public void showArbol(ActionEvent ev) {
+        createAndSetSwingContent(arbol);
+    }
+
+    private void createAndSetSwingContent(ArbolB ar) {
+
+        SwingUtilities.invokeLater(() -> {
+            
+            JFrame pane = new JFrame("Arbol de Huffman");
+            pane.add(new ArbolGrafico(ar));
+            pane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //para terminar hilo
+            pane.setSize(1700, 720);
+            pane.setVisible(true);
+           
+        });
+
+    }*/
     public void crearOraciones(){
         //Arbol positivo
         //insertar(sujeto,verbo,predicado);
