@@ -1,12 +1,12 @@
-package Arboles;
+package ArbolNegativo;
 
+import ArbolIn.*;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-public class ArbolGrafico extends JPanel {
-    
-    private ArbolB ab;
+public class ArbolGraficoAN extends JPanel {
+    private ArbolAN ab;
     private HashMap posicionNodos = null; //Indica en que parte del mapa //pantalla// iran los nodos
     private HashMap subtreeSizes = null; //Indica en que parte del mapa //pantalla// iran los subarboles
     private boolean d = true;
@@ -14,9 +14,9 @@ public class ArbolGrafico extends JPanel {
     private Dimension empty = new Dimension(0,0); //Indica el tamaño (ancho y alto) que tendran los rectangulos
     private FontMetrics fm = null; //Define una fuente
 
-    public ArbolGrafico(){}
+    public ArbolGraficoAN(){}
     
-    public ArbolGrafico(ArbolB ab) {
+    public ArbolGraficoAN(ArbolAN ab) {
           this.ab = ab;
           this.setBackground(Color.WHITE);
           posicionNodos = new HashMap();
@@ -29,7 +29,7 @@ public class ArbolGrafico extends JPanel {
     private void calcularPosiciones() {
          posicionNodos.clear();
          subtreeSizes.clear();
-         Nodo root = this.ab.raiz; //obtengo el nodo raiz
+         Nodo root = this.ab.getRaiz(); //obtengo el nodo raiz
          if (root != null) 
          {
              tamanoSubarbol(root);
@@ -76,9 +76,7 @@ public class ArbolGrafico extends JPanel {
           center = right - rd.width - child2child/2;
       else if (left != Integer.MAX_VALUE)
           center = left + ld.width + child2child/2;
-      int width = fm.stringWidth(" "+ n.dato +" F.E.= "+n.dato); 
-  
-      
+      int width = fm.stringWidth(n.info+"");
  
       posicionNodos.put(n,new Rectangle(center - width/2 - 3, top, width + 6, fm.getHeight()));
       
@@ -97,9 +95,8 @@ public class ArbolGrafico extends JPanel {
      
      Rectangle r = (Rectangle) posicionNodos.get(n);
      g.draw(r);
-  
-        g.drawString(" "+n.dato+" F.E.= " +n.fe, r.x+3, r.y + yoffs);
-     
+     g.drawString(n.info+"", r.x + 3, r.y + yoffs);
+   
      if (puntox != Integer.MAX_VALUE)
        
      g.drawLine(puntox, puntoy, (int)(r.x + r.width/2), r.y);
@@ -112,19 +109,15 @@ public class ArbolGrafico extends JPanel {
      // Sobreescribe el metodo paint y se encarga de pintar todo el árbol.
      // g: Objeto de la clase Graphics.
    public void paint(Graphics g) {
-         super.paint(g);
-         fm = g.getFontMetrics();
-
-         if (d) 
-         {
-           calcularPosiciones();
-           d = false;
-         }
-         
-         Graphics2D g2d = (Graphics2D) g;
-         g2d.translate(getWidth() / 2, parent2child);
-         dibujarArbol(g2d, this.ab.getRaiz(), Integer.MAX_VALUE, Integer.MAX_VALUE, fm.getLeading() + fm.getAscent());
-         fm = null;
+      super.paint(g);
+      fm = g.getFontMetrics();
+      if (d) {
+        calcularPosiciones();
+        d = false;
+      }     
+      Graphics2D g2d = (Graphics2D) g;
+      g2d.translate(getWidth() / 2, parent2child);
+      dibujarArbol(g2d, this.ab.getRaiz(), Integer.MAX_VALUE, Integer.MAX_VALUE, fm.getLeading() + fm.getAscent());
+      fm = null;
    }
-   
  }

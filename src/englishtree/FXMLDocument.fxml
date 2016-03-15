@@ -9,12 +9,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="457.0" prefWidth="617.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="englishtree.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="457.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="englishtree.FXMLDocumentController">
     <children>
       <TextArea fx:id="entrada" layoutX="14.0" layoutY="45.0" prefHeight="34.0" prefWidth="436.0" />
       <AnchorPane layoutY="107.0" prefHeight="456.0" prefWidth="667.0" style="-fx-background-color: white;">
          <children>
-            <Rectangle fx:id="R1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="78.0" layoutX="41.0" layoutY="30.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-fill: #53D37D;" width="601.0" />
+            <Rectangle fx:id="R1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="78.0" layoutX="41.0" layoutY="47.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-fill: #53D37D;" width="601.0" />
             <Button fx:id="C1" layoutX="14.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: white; -fx-background-radius: 50px;" />
             <FontAwesomeIconView fx:id="icon1" glyphName="PLUS" layoutX="42.0" layoutY="44.0" size="24.0" />
             <Rectangle fx:id="R2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="78.0" layoutX="41.0" layoutY="141.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-fill: #D05151;" width="601.0" />
@@ -47,22 +47,22 @@
                   <Font name="Bell MT" size="27.0" />
                </font>
             </Label>
-            <Button layoutX="598.0" layoutY="49.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
+            <Button layoutX="598.0" layoutY="49.0" mnemonicParsing="false" onAction="#showArbolA" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PAGELINES" size="30" />
+               </graphic>
+            </Button>
+            <Button layoutX="598.0" layoutY="160.0" mnemonicParsing="false" onAction="#showArbolAN" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TREE" size="30" />
                </graphic>
             </Button>
-            <Button layoutX="598.0" layoutY="160.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
+            <Button layoutX="598.0" layoutY="268.0" mnemonicParsing="false" onAction="#showArbolI" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TREE" size="30" />
                </graphic>
             </Button>
-            <Button layoutX="598.0" layoutY="268.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="TREE" size="30" />
-               </graphic>
-            </Button>
-            <Button layoutX="598.0" layoutY="376.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
+            <Button layoutX="598.0" layoutY="376.0" mnemonicParsing="false" onAction="#showArbolIN" style="-fx-background-color: transparent; -fx-border-color: transparent;" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TREE" size="30" />
                </graphic>

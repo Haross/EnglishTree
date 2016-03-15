@@ -11,7 +11,7 @@ D=[0-9]
 
 S = "I"|"You"|"We"|"They"|"you"|"we"|"they"
 T = "She"|"He"|"It"|"she"|"he"|"it"
-V = "find" | "thick"|"give"|"make"|"know"|"take"|"see"|"look"
+V = "find" | "think"|"give"|"make"|"know"|"take"|"see"|"look"
 P = {L} ({L}|{D})* 
 
 %{
@@ -27,12 +27,12 @@ P = {L} ({L}|{D})*
 {white} {/*Ignore*/}
 "//".* {/*Ignore*/}
 "not" {save = yytext(); return not;} 
-{P} {save = yytext(); return P;}
+
 "do" {save = yytext(); return do1;} 
 "does" {save = yytext(); return does1;} 
 "Do" {save = yytext(); return do1;} 
 "Does" {save = yytext(); return does1;} 
 "?" {save = yytext(); return question;} 
-
+{P} {save = yytext(); return P;}
 . {return ERROR;}
 }

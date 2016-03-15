@@ -5,6 +5,13 @@
  */
 package englishtree;
 
+import ArbolAfirmativo.ArbolB;
+import ArbolAfirmativo.ArbolGraficoA;
+import ArbolIn.ArbolABB;
+import ArbolNegativo.ArbolAN;
+import ArbolNegativo.ArbolGraficoAN;
+import Arboles.ArbolGraficoIN;
+import Arboles.Ineg;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import englishtree.Token;
 import static englishtree.Token.not;
@@ -38,8 +45,11 @@ import javax.swing.SwingUtilities;
 public class FXMLDocumentController implements Initializable {
     
     ArrayList<Token> tokens = new ArrayList();
-  
-    @FXML
+  Ineg interrogativoNe = new Ineg();
+  ArbolABB interrogativoA = new ArbolABB();
+  ArbolB afirmativo = new ArbolB();
+  ArbolAN Anegativo = new ArbolAN();
+  @FXML
     private Rectangle R1,R2,R3,R4;
     @FXML
     private FontAwesomeIconView icon1,icon2,icon3,icon4,icon5;
@@ -73,44 +83,105 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
-   /*@FXML
-    public void showArbol(ActionEvent ev) {
-        createAndSetSwingContent(arbol);
+   @FXML
+    public void showArbolIN(ActionEvent ev) {
+        createAndSetSwingContent(interrogativoNe);
     }
 
-    private void createAndSetSwingContent(ArbolB ar) {
+    private void createAndSetSwingContent(Ineg ar) {
 
         SwingUtilities.invokeLater(() -> {
             
             JFrame pane = new JFrame("Arbol de Huffman");
-            pane.add(new ArbolGrafico(ar));
+            pane.add(new ArbolGraficoIN(ar));
             pane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //para terminar hilo
             pane.setSize(1700, 720);
             pane.setVisible(true);
            
         });
 
-    }*/
-    public void crearOraciones(){
-        //Arbol positivo
-        //insertar(sujeto,verbo,predicado);
-        //Arbol negativo
-        //Insertar(sujeto, getAux() + "not", getVerb(), predicado);
-        //Arbol interrogativo negativo
-        //Insertar(getAux(), "not", sujeto, verbo.substring[0,verbo.length-1], predicado,"?");
-        //Arbol interrogativo
-        //Insertar(getAux(), sujeto, verbo, predicado,"?");
-        positivo.setText(sujeto + " "+ getVerb() +" "+ predicado);
-        negativo.setText(sujeto + " "+ getAux()+" not " +getVerbSF()+" "+ predicado);
-        interrogativo.setText(getAux()+" "+sujeto+" "+getVerbSF() +" "+predicado+"?") ;
-        interrogativoN.setText(getAux()+" not "+sujeto+" "+getVerbSF() +" "+predicado+"?");
+    }
+    @FXML
+    public void showArbolI(ActionEvent ev) {
+        
+        createAndSetSwingContent();
+    }
+     private void createAndSetSwingContent() {
 
+        SwingUtilities.invokeLater(() -> {
+            
+            JFrame pane = new JFrame("Arbol de Huffman");
+            pane.add(interrogativoA.getdibujo());
+            pane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //para terminar hilo
+            pane.setSize(1700, 720);
+            pane.setVisible(true);
+           
+        });
 
     }
+     @FXML
+    public void showArbolA(ActionEvent ev) {
+        
+        createAndSetSwingContent(afirmativo);
+    }
+     private void createAndSetSwingContent(ArbolB arbol) {
+
+        SwingUtilities.invokeLater(() -> {
+            
+            JFrame pane = new JFrame("Arbol de Huffman");
+            pane.add(new ArbolGraficoA(arbol));
+            pane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //para terminar hilo
+            pane.setSize(1700, 720);
+            pane.setVisible(true);
+           
+        });
+
+    }
+       @FXML
+    public void showArbolAN(ActionEvent ev) {
+        
+        createAndSetSwingContent(Anegativo);
+    }
+     private void createAndSetSwingContent(ArbolAN arbol) {
+
+        SwingUtilities.invokeLater(() -> {
+            
+            JFrame pane = new JFrame("Arbol de Huffman");
+            pane.add(new ArbolGraficoAN(arbol));
+            pane.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //para terminar hilo
+            pane.setSize(1700, 720);
+            pane.setVisible(true);
+           
+        });
+
+    }
+    public void crearOraciones(){
+        if(validacion()){
+        interrogativoNe = new Ineg();
+        interrogativoNe.insertar(getAux()+ ",not,"+sujeto+","+getVerbSF()+","+ predicado +",?");
+        
+        interrogativoN.setText(interrogativoNe.getOracion());
+        
+        interrogativoA = new ArbolABB();
+        interrogativoA.inserta(getAux(),sujeto,getVerbSF(),predicado,"?");
+        interrogativo.setText(interrogativoA.getOracion());
+        
+        afirmativo = new ArbolB();
+        
+        afirmativo.insertar(sujeto+","+verbo+","+predicado);
+        positivo.setText(afirmativo.getOracion());
+        
+        Anegativo = new ArbolAN();
+        Anegativo.InsertarNegativo(sujeto, getAux(), "not", getVerbSF(), predicado);
+        negativo.setText(Anegativo.getOracion());
+        }
+    }
+    
+    
     public String getVerbSF(){
         
         if(sujeto.equals("she") || sujeto.equals("he") || sujeto.equals("it") ||sujeto.equals("She") || sujeto.equals("He") || sujeto.equals("Tt")){
-            return verbo.substring(0,verbo.length()-2); 
+            return verbo.substring(0,verbo.length()); 
         }else{
             return verbo;
         }
@@ -122,13 +193,7 @@ public class FXMLDocumentController implements Initializable {
             return "do";
         }
     }
-    public String getVerb(){
-        if(sujeto.equals("she") || sujeto.equals("he") || sujeto.equals("it") ||sujeto.equals("She") || sujeto.equals("He") || sujeto.equals("Tt")){
-            return verbo+"s";
-        }else{
-            return verbo;
-        }
-    }
+    
    public boolean probarLexerFile() throws FileNotFoundException, IOException{
         File fichero = new File("fichero.txt");
         PrintWriter writer;
@@ -174,7 +239,9 @@ public class FXMLDocumentController implements Initializable {
                     }
                     break;
                 case P:
+                    
                     predicado += lexer.save +" ";
+                    System.out.println("Predicado "+predicado);
                     break;
                 case not:
                     if("".equals(not)){
@@ -187,6 +254,7 @@ public class FXMLDocumentController implements Initializable {
                 case does1:
                     if("".equals(aux)){
                         aux = lexer.save;
+                        System.out.println("aux: "+aux);
                     }else{
                         errorAlert();
                         return false;
@@ -204,15 +272,34 @@ public class FXMLDocumentController implements Initializable {
             
             
         }
+      
        
-       
+    }
+   
+    public boolean validacion(){
+        if(sujeto.equals("she") || sujeto.equals("he") || sujeto.equals("it") ||sujeto.equals("She") || sujeto.equals("He") || sujeto.equals("Tt")){
+            
+            if("".equals(aux) && verbo.length()>0){               
+                if (verbo.charAt(verbo.length()-1) != 's') {
+                     errorAlert();
+                return false;
+                }
+               
+            }else if(aux.equals("does") || aux.equals("Does")  ){
+                errorAlert();
+                return false;
+            }       
+            
+        }
+        
+        return true;
     }
    
     public void errorAlert(){
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Warning");
         alert.setHeaderText(null);
-        alert.setContentText("Ingrese una oración válida");
+        alert.setContentText("Aprende ingles :P");
 
         alert.showAndWait();
     }
@@ -281,3 +368,15 @@ public class FXMLDocumentController implements Initializable {
     }
     
 }
+//Arbol positivo
+        //insertar(sujeto,verbo,predicado);
+        //Arbol negativo
+        //Insertar(sujeto, getAux() + "not", getVerb(), predicado);
+        //Arbol interrogativo negativo
+        //Insertar(getAux(), "not", sujeto, verbo.substring[0,verbo.length-1], predicado,"?");
+        //Arbol interrogativo
+        //Insertar(getAux(), sujeto, verbo, predicado,"?");
+        //if(validacion()){
+        //positivo.setText(sujeto + " "+ verbo +" "+ predicado);
+        //negativo.setText(sujeto + " "+ getAux()+" not " +getVerbSF()+" "+ predicado);
+        //interrogativo.setText(getAux()+" "+sujeto+" "+getVerbSF() +" "+predicado+"?") ;
