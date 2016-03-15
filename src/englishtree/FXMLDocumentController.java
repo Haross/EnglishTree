@@ -36,8 +36,7 @@ import javafx.scene.shape.Rectangle;
 public class FXMLDocumentController implements Initializable {
     
     ArrayList<Token> tokens = new ArrayList();
-    @FXML
-    private Label label;
+  
     @FXML
     private Rectangle R1,R2,R3,R4;
     @FXML
@@ -68,27 +67,49 @@ public class FXMLDocumentController implements Initializable {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-      
+      crearOraciones();
         
     }
     
-    public void crear(){
-        boolean banderaNot = true;
-        for (Token token : tokens) {
-            switch (token) {
-                case S: 
-                    break;
-                case not:
-                    break;
-                
-            }
+   
+    public void crearOraciones(){
+        //Arbol positivo
+        //insertar(sujeto,verbo,predicado);
+        //Arbol negativo
+        //Insertar(sujeto, getAux() + "not", getVerb(), predicado);
+        //Arbol interrogativo negativo
+        //Insertar(getAux(), "not", sujeto, verbo.substring[0,verbo.length-1], predicado,"?");
+        //Arbol interrogativo
+        //Insertar(getAux(), sujeto, verbo, predicado,"?");
+        positivo.setText(sujeto + " "+ getVerb() +" "+ predicado);
+        negativo.setText(sujeto + " "+ getAux()+" not " +getVerbSF()+" "+ predicado);
+        interrogativo.setText(getAux()+" "+sujeto+" "+getVerbSF() +" "+predicado+"?") ;
+        interrogativoN.setText(getAux()+" not "+sujeto+" "+getVerbSF() +" "+predicado+"?");
+
+
+    }
+    public String getVerbSF(){
+        
+        if(sujeto.equals("she") || sujeto.equals("he") || sujeto.equals("it") ||sujeto.equals("She") || sujeto.equals("He") || sujeto.equals("Tt")){
+            return verbo.substring(0,verbo.length()-2); 
+        }else{
+            return verbo;
         }
     }
-    public void crearOraciones(){
-        
-        //Insertar(do/does, not, sujeto, verbo, predicado,?)
+    public String getAux(){
+        if(sujeto.equals("she") || sujeto.equals("he") || sujeto.equals("it") ||sujeto.equals("She") || sujeto.equals("He") || sujeto.equals("Tt")){
+            return "does";
+        }else{
+            return "do";
+        }
     }
-    
+    public String getVerb(){
+        if(sujeto.equals("she") || sujeto.equals("he") || sujeto.equals("it") ||sujeto.equals("She") || sujeto.equals("He") || sujeto.equals("Tt")){
+            return verbo+"s";
+        }else{
+            return verbo;
+        }
+    }
    public boolean probarLexerFile() throws FileNotFoundException, IOException{
         File fichero = new File("fichero.txt");
         PrintWriter writer;
@@ -127,6 +148,7 @@ public class FXMLDocumentController implements Initializable {
                 case V:
                     if("".equals(verbo)){
                         verbo = lexer.save;
+                        System.out.println(verbo+"--");
                     }else{
                         errorAlert();
                         return false;
@@ -144,8 +166,8 @@ public class FXMLDocumentController implements Initializable {
                     break;
                 case do1:
                 case does1:
-                    if("".equals(verbo)){
-                        verbo = lexer.save;
+                    if("".equals(aux)){
+                        aux = lexer.save;
                     }else{
                         errorAlert();
                         return false;
