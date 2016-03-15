@@ -156,7 +156,7 @@ public class FXMLDocumentController implements Initializable {
 
     }
     public void crearOraciones(){
-        if(validacion()){
+        
         interrogativoNe = new Ineg();
         interrogativoNe.insertar(getAux()+ ",not,"+sujeto+","+getVerbSF()+","+ predicado +",?");
         
@@ -174,7 +174,7 @@ public class FXMLDocumentController implements Initializable {
         Anegativo = new ArbolAN();
         Anegativo.InsertarNegativo(sujeto, getAux(), "not", getVerbSF(), predicado);
         negativo.setText(Anegativo.getOracion());
-        }
+        
     }
     
     
