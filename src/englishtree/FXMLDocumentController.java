@@ -6,6 +6,7 @@
 package englishtree;
 
 import englishtree.Token;
+import static englishtree.Token.not;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +30,7 @@ import javafx.scene.control.TextField;
  */
 public class FXMLDocumentController implements Initializable {
     
-    ArrayList<String> tokens = new ArrayList();
+    ArrayList<Token> tokens = new ArrayList();
     @FXML
     private Label label;
 
@@ -54,7 +55,14 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
-    
+    public void crear(){
+        for (int i = 0; i < tokens.size(); i++) {
+            switch(tokens.get(i)){
+                case not:
+                    break;
+            }
+        }
+    }
     
     
    public void probarLexerFile() throws FileNotFoundException, IOException{
@@ -81,7 +89,7 @@ public class FXMLDocumentController implements Initializable {
                 return;
                 
             }
-            tokens.add(token+"");
+            tokens.add(token);
             switch(token){
                 case ERROR:
                     Resultados = Resultados + "ERROR, sintaxís erronea \n";
